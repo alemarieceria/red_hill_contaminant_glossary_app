@@ -42,3 +42,11 @@ next-env.d.ts
 
 # project reference
 .rebuild_context/
+
+# .gitignore additions beyond the Next.js defaults
+/out/
+/.next/
+.DS_Store
+*.local
+/data-pipeline/.Rproj.user/
+/data-pipeline/renv/library/
