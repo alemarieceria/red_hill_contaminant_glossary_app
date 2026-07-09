@@ -22,6 +22,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
 ### Prerequisites
+
 - Node.js 18+ (see `.nvmrc`)
 - npm 11+
 
@@ -105,16 +106,19 @@ See [DEPLOYMENT.md](./documentation/DEPLOYMENT.md) for troubleshooting.
 ## Troubleshooting
 
 **"Module not found"**
+
 ```bash
 npm install
 ```
 
 **"Port 3000 already in use"**
+
 ```bash
 npm run dev -- -p 3001
 ```
 
 **"TypeScript errors"**
+
 ```bash
 npm run lint
 ```
@@ -124,6 +128,7 @@ See [CONTRIBUTING.md](./documentation/CONTRIBUTING.md#troubleshooting) for more.
 ## Support
 
 For questions or issues:
+
 - Check the [documentation](./documentation/)
 - Review [existing issues](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues)
 - Open a [new issue](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues/new)
