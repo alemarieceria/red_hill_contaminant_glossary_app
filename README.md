@@ -1,149 +1,68 @@
 # Red Hill Contaminant Glossary
 
-This website provides detail about contaminants that were detected across various monitoring efforts carried out in response to the Red Hill Water Crisis. Built with Next.js, React, and TypeScript.
+The Red Hill Contaminant Glossary is a public reference for searching and exploring information about contaminants identified through monitoring efforts related to the Red Hill water crisis.
 
 _**Disclaimer**: This glossary is intended for general reference only. Information is compiled from publicly available regulatory databases, testing reports, and scientific literature. It does not constitute health, legal, or regulatory advice. Consult official sources and qualified professionals for guidance specific to your situation._
 
-**Live:** https://examplesite.cloudflare.com  
-**ArcGIS Hub:** [Embedded in hub page]
+## Project Status
 
-## Quick Start
+The glossary is under active development. The repository currently includes the application foundation, authoritative source workbooks, and the initial structure for a reproducible data pipeline.
 
-### Local Development
+## Application
+
+The public site is a statically generated Next.js application deployed through Cloudflare Pages.
+
+Current frontend technologies include:
+
+- Next.js 16
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- shadcn/ui and Base UI
+
+## Local Development
+
+Node.js 22.16.0 is specified in `.nvmrc`.
 
 ```bash
-# Install dependencies
-npm install
-
-# Start dev server
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:3000](http://localhost:3000).
 
-### Prerequisites
-
-- Node.js 18+ (see `.nvmrc`)
-- npm 11+
-
-## Project Structure
-
-```
-src/
-├── app/              # Next.js pages and layout
-├── components/       # Reusable React components
-└── lib/              # Utilities and types
-
-public/               # Static assets
-documentation/        # Project guides
-pipeline/             # Data pipeline (R)
-```
-
-## Documentation
-
-- **[ARCHITECTURE.md](./documentation/ARCHITECTURE.md)** — How the app works
-- **[DEVELOPMENT.md](./documentation/DEVELOPMENT.md)** — Local setup guide
-- **[DATA.md](./documentation/DATA.md)** — How to update contaminant data
-- **[CONTRIBUTING.md](./documentation/CONTRIBUTING.md)** — Contributing guidelines
-- **[DEPLOYMENT.md](./documentation/DEPLOYMENT.md)** — Deployment instructions
-
-## Tech Stack
-
-- **Frontend:** Next.js, React, TypeScript
-- **Styling:** Tailwind CSS, shadcn/ui
-- **Hosting:** Cloudflare Pages
-- **Data Pipeline:** R → JSON
-- **Code Quality:** ESLint, Prettier
-
-## Key Features
-
-- **Search & Filter:** Find contaminants by name, CASRN, aliases, or classification
-- **Summary & Detailed Views:** Basic info for public, technical details for researchers
-- **External Links:** Direct links to PubChem, Wikidata, regulatory databases
-- **CSV Export:** Download filtered results
-- **Responsive Design:** Works on desktop, tablet, and mobile
-- **Accessible:** WCAG AA compliant
-
-## Data Updates
-
-Contaminant data is enriched via an R/Quarto pipeline and stored as JSON.
-
-To update data:
-
-```bash
-cd pipeline/
-quarto render process_data.qmd
-cd ../
-git add public/data.json
-git commit -m "Update contaminants: [describe changes]"
-git push
-```
-
-See [DATA.md](./documentation/DATA.md) for detailed instructions.
-
-## Development Workflow
-
-1. Create a feature branch: `git checkout -b feature/your-feature`
-2. Make changes and commit with conventional commits
-3. Push and open a Pull Request
-4. After review/approval, merge to `main`
-5. Cloudflare auto-deploys
-
-See [CONTRIBUTING.md](./documentation/CONTRIBUTING.md) for full guidelines.
-
-## Deployment
-
-The `main` branch is automatically deployed to Cloudflare Pages on every push.
-
-Manual deployment:
-
-```bash
-npm run build
-```
-
-See [DEPLOYMENT.md](./documentation/DEPLOYMENT.md) for troubleshooting.
-
-## Troubleshooting
-
-**"Module not found"**
-
-```bash
-npm install
-```
-
-**"Port 3000 already in use"**
-
-```bash
-npm run dev -- -p 3001
-```
-
-**"TypeScript errors"**
+Available checks:
 
 ```bash
 npm run lint
+npm run format:check
+npm run build
 ```
 
-See [CONTRIBUTING.md](./documentation/CONTRIBUTING.md#troubleshooting) for more.
+The production build is exported to `out/` for static hosting.
 
-## Support
+## Repository Contents
 
-For questions or issues:
+```text
+src/             Next.js application source
+public/          Static assets and generated public data
+data_pipeline/   Authoritative workbooks and Python pipeline source
+```
 
-- Check the [documentation](./documentation/)
-- Review [existing issues](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues)
-- Open a [new issue](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues/new)
+The Python pipeline is still being implemented. Pipeline setup and release commands will be documented in `data_pipeline/README.md` when they are operational.
+
+## Contributing and Corrections
+
+Use a branch and pull request for repository changes. Keep scientific workbook updates separate from application or pipeline-code changes.
+
+To report a possible data problem, request a feature, or ask a project question, open a [GitHub issue](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues/new). Existing reports can be reviewed in the [issue tracker](https://github.com/alemarieceria/red_hill_contaminant_glossary_app/issues).
 
 ## License
 
-MIT License — see [LICENSE](./LICENSE) for details.
+This project is available under the [MIT License](./LICENSE).
 
-## Contributors
+## Project Team
 
 - **Eamonn Clarke, PhD** — Analytical Chemist, WRRC
 - **Alemarie Ceria** — Developer, WRRC
 - **Dilsiich Maui** — BSc Student Intern, TSPH
-
----
-
-**Last updated:** July 2026  
-**Maintained by:** Alemarie Ceria, WRRC
