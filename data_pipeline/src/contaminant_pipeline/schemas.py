@@ -1,0 +1,1 @@
+# Column names/schemas for the contaminant pipeline

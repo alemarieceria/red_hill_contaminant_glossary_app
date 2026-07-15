@@ -1,0 +1,1 @@
+# Writes contaminants.generated.ts or JSON

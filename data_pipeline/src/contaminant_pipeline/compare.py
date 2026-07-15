@@ -1,0 +1,1 @@
+# Compares old and new versions of the contaminant glossary to identify changes
