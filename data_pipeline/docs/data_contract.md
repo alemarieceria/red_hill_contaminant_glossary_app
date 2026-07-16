@@ -1,7 +1,5 @@
 # Contaminant Pipeline Data Contract
 
-Status: proposed; supervisor approval is required before authoritative workbook changes.
-
 ## Immutable contaminant identifiers
 
 ### Format
@@ -32,17 +30,18 @@ An identifier belongs permanently to one contaminant record. It does not derive 
 
 Merge, split, and identity-change decisions require scientific review. The pipeline must report those situations rather than decide them automatically.
 
-### Initial bootstrap proposal
+### Initial bootstrap mapping
 
-The July glossary contains 152 unique legacy `CG ID #` values numbered 1 through 152. Phase 0B will propose converting those values directly:
+The July glossary contains 152 unique legacy `CG ID #` values numbered 1 through 152. Phase 0B will map those values directly:
 
 ```text
 legacy CG ID # 1   -> RHC-001
 legacy CG ID # 152 -> RHC-152
 ```
 
-This proposal is based on the legacy identifier value, never the workbook row position. It does not become authoritative until reviewed and approved by the supervisor. The pipeline must not write the proposal into an authoritative
-workbook.
+This mapping is based on the legacy identifier value, never the workbook row
+position. The supervisor incorporates reviewed bootstrap changes manually; the
+pipeline must not write into an authoritative workbook.
 
 ### Decision examples
 

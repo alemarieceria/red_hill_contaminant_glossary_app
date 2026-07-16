@@ -10,10 +10,8 @@ run only when called directly by Python code or tests; they are not yet
 connected to the command-line interface, Excel workbooks, or the release
 pipeline.
 
-The three-digit `RHC-NNN` contract is proposed and still requires supervisor
-approval before authoritative workbook changes. Earlier planning examples use
-a six-digit suffix, but the current tracked contract and implementation reflect
-the newer three-digit decision.
+Contaminant identifiers use the three-digit `RHC-NNN` format, from `RHC-001`
+through `RHC-999`.
 
 ## Problem this component solves
 
@@ -31,7 +29,7 @@ The exact format and lifecycle rules are defined in the
 
 | Situation | How the component is used |
 | --- | --- |
-| Initial bootstrap | Validate the proposed `RHC-001` through `RHC-152` identifiers. |
+| Initial bootstrap | Validate the `RHC-001` through `RHC-152` identifiers. |
 | Routine release | Validate identifier format and uniqueness once release integration exists. |
 | New contaminant | Calculate the number after the highest ID ever issued. |
 | Split or corrected chemical identity | Calculate new IDs after scientific review determines that new records are required. |
@@ -77,8 +75,8 @@ flowchart TD
         K -- No --> L
     end
 
-    M["Planned: pipeline reports<br/>the proposed ID"]
-    N["Planned: supervisor reviews it and<br/>manually updates the workbook"]
+    M["Planned: pipeline reports<br/>the next ID"]
+    N["Planned: supervisor confirms the identity<br/>and manually updates the workbook"]
 
     A --> B --> C
     L --> M --> N
@@ -167,8 +165,8 @@ The component deliberately does not:
 ## Current limitations and planned integration
 
 The project does not yet have the permanent registry that maps each ID to its
-contaminant and lifecycle status. Phase 0B will propose the initial mapping,
-which becomes authoritative only after supervisor review.
+contaminant and lifecycle status. Phase 0B will generate the initial mapping;
+the supervisor will incorporate reviewed changes into the workbooks manually.
 
 Later components must connect these functions to workbook reading, reference
 validation, release comparison, and app export. Until then, callers are
