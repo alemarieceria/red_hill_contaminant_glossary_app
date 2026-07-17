@@ -38,6 +38,8 @@ class NullPolicy(StrEnum):
 
 
 class PrimaryClass(StrEnum):
+    """Allowed top-level chemical or measurement classifications."""
+
     ALIPHATIC = "Aliphatic"
     AROMATIC = "Aromatic"
     GLYCOL_ETHER = "Glycol ether"
@@ -48,6 +50,8 @@ class PrimaryClass(StrEnum):
 
 
 class SecondaryClass(StrEnum):
+    """Allowed second-level chemical classifications."""
+
     ALKANE = "Alkane"
     ALKENE = "Alkene"
     BENZENE = "Benzene"
@@ -61,6 +65,8 @@ class SecondaryClass(StrEnum):
 
 
 class TertiaryClass(StrEnum):
+    """Allowed detailed chemical-family classifications."""
+
     ALKALI_EARTH_METAL = "Alkali earth metal"
     ALKALINE_EARTH_METAL = "Alkaline earth metal"
     ALKENYLATED = "Alkenylated"
@@ -87,6 +93,8 @@ class TertiaryClass(StrEnum):
 
 
 class PesticideStatus(StrEnum):
+    """Normalized relationship between a contaminant and pesticide use."""
+
     PESTICIDE = "pesticide"
     PESTICIDE_PRODUCT_CONTAMINANT = "pesticide_product_contaminant"
     NOT_PESTICIDE = "not_pesticide"
@@ -95,6 +103,8 @@ class PesticideStatus(StrEnum):
 
 
 class StockholmListing(StrEnum):
+    """Allowed Stockholm Convention listing descriptions."""
+
     ANNEX_A = "A"
     ANNEX_A_AND_C = (
         "A (as industrial chemical), C (as unintentional production)"
@@ -108,6 +118,8 @@ class NotApplicable(StrEnum):
 
 
 class SafewatersReviewMarker(StrEnum):
+    """Internal marker for a Safewaters value that still needs review."""
+
     UNRESOLVED = "!!!!"
 
 
@@ -140,6 +152,8 @@ class CanonicalModel(BaseModel):
 
 
 class IntegerRange(CanonicalModel):
+    """Inclusive nonnegative integer range with ordered endpoints."""
+
     lower: NonnegativeInteger
     upper: NonnegativeInteger
 
@@ -151,6 +165,8 @@ class IntegerRange(CanonicalModel):
 
 
 class RegulatoryRange(CanonicalModel):
+    """Inclusive nonnegative decimal range for a regulatory value."""
+
     lower: NonnegativeDecimal
     upper: NonnegativeDecimal
 
@@ -162,6 +178,8 @@ class RegulatoryRange(CanonicalModel):
 
 
 class ActionLevel(CanonicalModel):
+    """Regulatory value explicitly represented as an action level."""
+
     value: NonnegativeDecimal
 
 

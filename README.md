@@ -6,7 +6,11 @@ _**Disclaimer**: This glossary is intended for general reference only. Informati
 
 ## Project Status
 
-The glossary is under active development. The repository currently includes the application foundation, authoritative source workbooks, and the initial structure for a reproducible data pipeline.
+The glossary is under active development. The repository currently includes
+the application foundation, authoritative source workbooks, and a tested Python
+pipeline foundation for permanent contaminant IDs, reviewed reference
+relationships, workbook compatibility, footnotes, and durable registry assets.
+Intake, normalization, comparison, and website-data export are not yet complete.
 
 ## Application
 
@@ -49,7 +53,11 @@ public/          Static assets and generated public data
 data_pipeline/   Authoritative workbooks and Python pipeline source
 ```
 
-The Python pipeline is still being implemented. Pipeline setup and release commands will be documented in `data_pipeline/README.md` when they are operational.
+The Python pipeline is still being implemented. Start with the
+[plain-language pipeline overview](./data_pipeline/docs/pipeline_overview.md),
+then use the [pipeline README](./data_pipeline/README.md) for setup and the
+[Python code tour](./data_pipeline/docs/code_tour.md) for a file-by-file guide.
+The current command line displays help but does not yet run a complete release.
 
 ## Contributing and Corrections
 

@@ -1,12 +1,47 @@
 # Red Hill Contaminant Pipeline
 
 This package is the Python foundation for validating and publishing the Red
-Hill contaminant glossary. Its environment, installed package, workbook reader,
-schemas, synthetic fixtures, and command-line entry point are ready. Workbook
-processing and release commands will be added in later phases; the current CLI
-does not transform or publish data.
+Hill contaminant glossary. It currently reads the authoritative workbooks
+without modifying them; validates workbook Metadata, permanent IDs, reference
+relationships, and footnotes; produces deterministic bootstrap reports; and
+strictly protects the tracked contaminant registry and reference crosswalk.
+
+Workbook intake, normalization, release comparison, and website export commands
+will be added in later phases. The current CLI displays help and does not yet
+transform or publish data.
 
 Run every command below from the `data_pipeline` directory.
+
+## Choose your starting point
+
+- **I want a plain-language explanation:** read the
+  [pipeline overview](docs/pipeline_overview.md).
+- **I maintain the workbooks:** read the [data contract](docs/data_contract.md)
+  and [canonical schema](docs/canonical_schema.md).
+- **I want to understand the Python:** follow the
+  [code tour](docs/code_tour.md).
+- **I need repository storage rules:** read the
+  [Git and artifact policy](docs/git_and_artifact_policy.md).
+- **I need one component's technical details:** use the
+  [documentation index](docs/README.md).
+
+## Current capabilities
+
+The implemented foundation can:
+
+- read `.xlsx` workbook contents into closed, immutable snapshots;
+- validate workbook identity, schema compatibility, and release revisions;
+- assign and protect `RHC-NNN` contaminant identifiers;
+- resolve exact reference labels and explicit reviewed overrides without fuzzy
+  matching;
+- validate footnote definitions and contaminant usages;
+- build deterministic pass/fail reports with counts and source context;
+- load, serialize, and protect the durable registry and reference crosswalk;
+- verify all current relationships against the authoritative workbooks without
+  changing protected inputs or assets.
+
+See the [pipeline overview](docs/pipeline_overview.md) for the completed and
+planned workflow stages.
 
 ## Prerequisites
 
@@ -53,13 +88,13 @@ successfully. Neither form reads, transforms, or writes the workbooks.
 Run the complete test suite:
 
 ```powershell
-uv run pytest
+uv run --locked --extra dev pytest -p no:cacheprovider
 ```
 
 Check the Python source and tests with Ruff:
 
 ```powershell
-uv run ruff check .
+uv run --locked --extra dev ruff check .
 ```
 
 Confirm that the dependency declaration still matches the tracked lockfile:
@@ -72,7 +107,7 @@ All commands should succeed. The tests include isolated installed-package and
 CLI smoke checks. Verification should not change the authoritative workbooks or
 create tracked pipeline outputs.
 
-## Project rules
+## Governing project rules
 
 - [Data contract](docs/data_contract.md): workbook metadata, relationships,
   compatibility, and validation decisions.
@@ -80,6 +115,9 @@ create tracked pipeline outputs.
   types, units, and publication status.
 - [Git and artifact policy](docs/git_and_artifact_policy.md): tracked inputs,
   ignored outputs, snapshots, and release artifacts.
+
+The [documentation index](docs/README.md) links the plain-language overview,
+developer tour, and detailed component decisions.
 
 ## Troubleshooting
 
