@@ -1,1 +1,7 @@
-.venv
+# Generated pipeline data
+data/01_manifest/**
+data/02_raw_snapshots/**
+!data/02_raw_snapshots/20260115/
+!data/02_raw_snapshots/20260115/contaminant_glossary.xlsx
+data/03_processed/**
+data/04_output/**

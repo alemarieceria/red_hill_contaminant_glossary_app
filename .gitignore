@@ -13,6 +13,17 @@
 # testing
 /coverage
 
+# python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
 # next.js
 /.next/
 /out/
@@ -40,13 +51,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# build-generated application data
+/public/data/
+
 # project reference
 .rebuild_context/
 
-# .gitignore additions beyond the Next.js defaults
-/out/
-/.next/
-.DS_Store
+# local overrides
 *.local
-/data-pipeline/.Rproj.user/
-/data-pipeline/renv/library/

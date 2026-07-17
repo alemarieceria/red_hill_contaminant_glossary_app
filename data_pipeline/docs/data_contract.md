@@ -193,19 +193,21 @@ outputs are written outside `data/00_incoming`.
 
 ### Production relationship
 
-`contaminant_id` is the only production join key between contaminants and
+`id_contaminant` is the only production join key between contaminants and
 references. Each reference row belongs to exactly one contaminant, and one
 contaminant may have zero, one, or many reference rows. A reference ID must
 resolve to exactly one contaminant in the selected release.
 
-`compound_name` remains on every reference row as a human-readable review
-label. It is not a fallback key. If the label disagrees with the current
-glossary name, validation reports the mismatch without changing or inferring
-the ID.
+The source `compound_name` remains on every normalized reference row as the
+private `refs_review_name` review label. It is not a fallback key. If the label
+disagrees with the current glossary name, validation reports the mismatch
+without changing or inferring the ID.
 
-The canonical reference fields are `contaminant_id`, `compound_name`, `source`,
-and `link`. All four are required and nonblank in normalized output. `link`
-must be an absolute `http` or `https` URL.
+The canonical reference fields are `id_contaminant`, `refs_review_name`,
+`refs_source`, and `refs_url`. All four are required and nonblank in normalized
+output. `refs_url` must be an absolute `http` or `https` URL. The website
+receives the technical join key, source, and URL; the review label stays
+private.
 
 ### Initial crosswalk
 
@@ -263,7 +265,7 @@ source columns and maps explicitly to the canonical not-applicable state.
 ### Pesticide status
 
 The source `Pesticide` cell and footnote D produce exactly one canonical
-`pesticide_status` value:
+`class_pesticide` value:
 
 | Source state | Canonical value |
 | --- | --- |
@@ -283,7 +285,7 @@ consistent while preserving the existing blank-plus-D source case.
 Footnotes form a separate relationship:
 
 ```text
-contaminant_id -> footnote_id -> footnote text
+id_contaminant -> source_notes_footnote_id -> source_notes_footnote_text
 ```
 
 The `Footnotes` sheet contains unique, nonblank `id` and `text` columns.

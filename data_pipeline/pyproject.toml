@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "red-hill-contaminant-pipeline"
+version = "0.1.0"
+description = "Validate and publish Red Hill contaminant glossary data."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "openpyxl>=3.1.5,<4",
+    "pandas>=3.0.3,<4",
+    "pydantic>=2.13.4,<3",
+]
+
+# argparse is part of Python's standard library and needs no dependency entry.
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1.1,<10",
+    "ruff>=0.15.22,<0.16",
+]
+enrichment = [
+    "httpx>=0.28.1,<1",
+]
+chemistry = [
+    "rdkit>=2026.3.3,<2027",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/contaminant_pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+
+[tool.ruff]
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

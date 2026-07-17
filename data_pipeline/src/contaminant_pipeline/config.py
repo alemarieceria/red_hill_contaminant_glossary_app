@@ -1,1 +1,51 @@
-# Folder/version settings
+"""Stable workbook names and release rules for the contaminant pipeline."""
+
+from datetime import datetime
+import re
+
+
+GLOSSARY_WORKBOOK_FILENAME = "contaminant_glossary.xlsx"
+REFERENCES_WORKBOOK_FILENAME = "references.xlsx"
+
+GLOSSARY_WORKBOOK_TYPE = "contaminant_glossary"
+REFERENCES_WORKBOOK_TYPE = "references"
+
+WORKBOOK_SCHEMA_VERSION = "1.0.0"
+SUPPORTED_WORKBOOK_SCHEMA_VERSIONS = frozenset({WORKBOOK_SCHEMA_VERSION})
+
+INTRODUCTION_SHEET_NAME = "Introduction"
+GLOSSARY_SHEET_NAME = "Glossary"
+FOOTNOTES_SHEET_NAME = "Footnotes"
+METADATA_SHEET_NAME = "Metadata"
+REFERENCES_SHEET_NAME = "Sheet1"
+
+GLOSSARY_TABLE_NAME = "Table_1"
+METADATA_TABLE_NAME = "MetadataTable"
+
+_RELEASE_ID_PATTERN = re.compile(
+    r"^(?P<date>[0-9]{8})(?:-r(?:[2-9]|[1-9][0-9]+))?$"
+)
+
+
+def validate_release_id(value: object) -> str:
+    """Return a valid release ID or raise ``ValueError``.
+
+    A release ID is a real calendar date in ``YYYYMMDD`` form, optionally
+    followed by ``-rN`` where ``N`` is at least 2.
+    """
+
+    if not isinstance(value, str):
+        raise ValueError("release ID must be text")
+
+    match = _RELEASE_ID_PATTERN.fullmatch(value)
+    if match is None:
+        raise ValueError(
+            "release ID must have the form YYYYMMDD or YYYYMMDD-rN (N >= 2)"
+        )
+
+    try:
+        datetime.strptime(match.group("date"), "%Y%m%d")
+    except ValueError as error:
+        raise ValueError("release ID contains an invalid calendar date") from error
+
+    return value
