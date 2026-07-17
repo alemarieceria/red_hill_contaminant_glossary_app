@@ -17,8 +17,8 @@ Git tracks the inputs and instructions required to reproduce a release:
 - Python and website source code, tests, and synthetic test fixtures.
 - Documentation, package configuration, dependency lock files, and automation
   configuration.
-- Pipeline-owned durable assets, including the contaminant ID registry and
-  reference crosswalk when they are implemented.
+- Pipeline-owned durable assets at `registry/contaminant_registry.csv` and
+  `registry/reference_crosswalk.csv`.
 
 Incoming workbook updates are ordinary reviewed Git changes. Stable filenames
 are retained so a data update replaces the intended input instead of creating
@@ -73,7 +73,8 @@ Git history.
 | Future raw snapshots | `data/02_raw_snapshots/<release-id>/` | Ignore | Recreated locally and packaged in releases |
 | Manifests and processed tables | `data/01_manifest/`, `data/03_processed/` | Ignore | GitHub Release bundle |
 | Reports, patches, and caches | `data/04_output/` | Ignore | GitHub Release bundle when applicable |
-| Stable ID registry and crosswalk | Pipeline-owned configured paths | Track | Git |
+| Stable ID registry | `registry/contaminant_registry.csv` | Track | Git |
+| Reference crosswalk | `registry/reference_crosswalk.csv` | Track | Git |
 | Generated website JSON | `public/data/` | Ignore | Rebuilt during deployment and packaged in releases |
 | Source, tests, configuration, and docs | Repository source paths | Track | Git |
 | Release bundle archives | Release staging location | Ignore | GitHub Releases |

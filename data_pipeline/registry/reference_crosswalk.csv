@@ -1,0 +1,134 @@
+refs_review_name,id_contaminant,resolution_method,reviewed_release_id
+"1,1,1,2-tetrachloroethane",RHC-123,override,20260716
+"1,1,1-trichloroethane",RHC-142,override,20260716
+"1,1,2,2-tetrachloroethane",RHC-124,override,20260716
+"1,1,2-trichloroethane",RHC-143,exact,20260716
+"1,1-Dichloroethane",RHC-061,exact,20260716
+"1,1-Dichloropropene",RHC-070,exact,20260716
+"1,2,3-Trichlorobenzene",RHC-140,exact,20260716
+"1,2,3-Trichloropropane",RHC-146,exact,20260716
+"1,2,4-Trichlorobenzene",RHC-141,exact,20260716
+"1,2,4-trimethylbenzene",RHC-147,override,20260716
+"1,2-Dibromo-3-chloropropane (DBCP)",RHC-051,override,20260716
+"1,2-Dibromoethane (EDB)",RHC-054,exact,20260716
+"1,2-Dichloroethane",RHC-062,exact,20260716
+"1,2-Dichloropropane",RHC-067,exact,20260716
+"1,3,5-trimethylbenzene",RHC-148,override,20260716
+"1,3-Dichloropropane",RHC-068,exact,20260716
+"1,3-Dichloropropene, Total",RHC-071,exact,20260716
+1-Methylnaphthalene,RHC-100,exact,20260716
+"2,2-Dichloropropane",RHC-069,exact,20260716
+2-(2-methoxyethoxy)ethanol,RHC-001,exact,20260716
+2-Butanone (Methyl Ethyl Ketone),RHC-027,override,20260716
+2-Chlorotoluene,RHC-045,exact,20260716
+2-Hexanone,RHC-088,exact,20260716
+2-Methylnaphthalene,RHC-101,exact,20260716
+4-Chlorotoluene,RHC-046,exact,20260716
+4-Methyl-2-pentanone,RHC-098,exact,20260716
+Alachlor,RHC-004,exact,20260716
+Anthracene,RHC-005,exact,20260716
+Antimony,RHC-006,exact,20260716
+Arsenic,RHC-007,exact,20260716
+Atrazine,RHC-008,exact,20260716
+Barium,RHC-009,exact,20260716
+Benzene,RHC-010,exact,20260716
+Benzo(a)anthracene,RHC-011,override,20260716
+Benzo(a)pyrene,RHC-012,override,20260716
+Benzo(b)fluoranthene,RHC-013,override,20260716
+"Benzo(g,h,i)perylene",RHC-014,override,20260716
+Benzo(k)fluoranthene,RHC-015,override,20260716
+Beryllium,RHC-017,exact,20260716
+Bis(2-ethylhexyl)adipate,RHC-018,exact,20260716
+Bis(2-ethylhexyl)phthalate,RHC-019,exact,20260716
+Bromate,RHC-020,exact,20260716
+Bromide,RHC-021,exact,20260716
+Bromobenzene,RHC-022,exact,20260716
+Bromochloromethane,RHC-023,exact,20260716
+Bromodichloromethane,RHC-024,exact,20260716
+Bromoform,RHC-025,exact,20260716
+Bromomethane,RHC-026,exact,20260716
+Cadmium,RHC-031,exact,20260716
+Calcium,RHC-032,exact,20260716
+Carbon tetrachloride,RHC-033,exact,20260716
+Chlorate,RHC-034,exact,20260716
+Chloride,RHC-037,exact,20260716
+Chlorite,RHC-039,exact,20260716
+Chlorobenzene,RHC-040,exact,20260716
+Chloroethane,RHC-041,exact,20260716
+Chloroform,RHC-043,exact,20260716
+Chloromethane,RHC-044,exact,20260716
+Chromium,RHC-047,exact,20260716
+Chrysene,RHC-048,exact,20260716
+Copper,RHC-050,exact,20260716
+Dibromochloromethane,RHC-053,exact,20260716
+Dibromomethane,RHC-055,exact,20260716
+Dichlorodifluoromethane (Freon 12),RHC-060,exact,20260716
+Diisopropyl ether,RHC-074,override,20260716
+Endrin,RHC-075,exact,20260716
+Ethyl tert-butyl ether,RHC-076,exact,20260716
+Fluoranthene,RHC-078,exact,20260716
+Fluorene,RHC-079,exact,20260716
+Fluoride,RHC-080,exact,20260716
+Free chlorine,RHC-038,exact,20260716
+Freon 113,RHC-081,exact,20260716
+Heptachlor,RHC-082,exact,20260716
+Heptachlor epoxide,RHC-083,exact,20260716
+Heterotrophic plate count,RHC-084,exact,20260716
+Hexachlorobutadiene,RHC-085,exact,20260716
+Hexachlorocyclopentadiene,RHC-087,exact,20260716
+"Indeno (1,2,3-cd) pyrene",RHC-089,exact,20260716
+Iron,RHC-090,exact,20260716
+Isopropylbenzene,RHC-113,exact,20260716
+Lead,RHC-092,exact,20260716
+Magnesium,RHC-093,exact,20260716
+Manganese,RHC-094,exact,20260716
+Mercury,RHC-095,exact,20260716
+Methoxychlor,RHC-096,exact,20260716
+Methyl tert-butyl ether (MTBE),RHC-097,exact,20260716
+Methylene chloride,RHC-099,exact,20260716
+Naphthalene,RHC-104,exact,20260716
+Nickel,RHC-105,exact,20260716
+Pentachlorophenol,RHC-108,exact,20260716
+Phenanthrene,RHC-110,exact,20260716
+Phosphate,RHC-111,exact,20260716
+Potassium,RHC-112,exact,20260716
+Pyrene,RHC-115,exact,20260716
+Selenium,RHC-116,exact,20260716
+Silica,RHC-117,exact,20260716
+Simazine,RHC-118,exact,20260716
+Sodium,RHC-119,exact,20260716
+Styrene,RHC-120,exact,20260716
+Sulfate,RHC-121,exact,20260716
+Tert-amyl methyl ether,RHC-122,exact,20260716
+Tetrachloroethene,RHC-125,exact,20260716
+Thallium,RHC-126,exact,20260716
+Toluene,RHC-127,exact,20260716
+Total HAAs,RHC-130,exact,20260716
+Total alkalinity,RHC-128,exact,20260716
+Total coliforms,RHC-129,exact,20260716
+Trichloroethene,RHC-144,exact,20260716
+Trichlorofluoromethane,RHC-145,exact,20260716
+Turbidity,RHC-149,exact,20260716
+Vinyl chloride,RHC-042,exact,20260716
+acenaphthene,RHC-002,override,20260716
+acenaphthylene,RHC-003,override,20260716
+alpha-Chlordane,RHC-035,exact,20260716
+benzo[k]tetraphene,RHC-016,override,20260716
+"cis-1,2-Dichloroethene",RHC-064,exact,20260716
+"cis-1,3-Dichloropropene",RHC-072,exact,20260716
+cis-nonachlor,RHC-106,override,20260716
+gamma-BHC (Lindane),RHC-086,exact,20260716
+gamma-Chlordane,RHC-036,exact,20260716
+m-Dichlorobenzene,RHC-058,exact,20260716
+n-Butylbenzene,RHC-028,exact,20260716
+n-propylbenzene,RHC-114,override,20260716
+o-Dichlorobenzene,RHC-057,exact,20260716
+p-Dichlorobenzene,RHC-059,exact,20260716
+p-Isopropyltoluene,RHC-091,exact,20260716
+pH,RHC-109,exact,20260716
+sec-Butylbenzene,RHC-029,exact,20260716
+tert-Bultylbenzene,RHC-030,override,20260716
+"trans-1,2-Dichloroethene",RHC-066,exact,20260716
+"trans-1,3-Dichloropropene",RHC-073,exact,20260716
+trans-nonachlor,RHC-107,override,20260716
+xylenes,RHC-152,override,20260716
