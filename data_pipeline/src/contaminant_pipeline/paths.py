@@ -13,6 +13,9 @@ PIPELINE_ROOT = Path(__file__).resolve().parents[2]
 REPOSITORY_ROOT = PIPELINE_ROOT.parent
 
 DATA_DIR = PIPELINE_ROOT / "data"
+REGISTRY_DIR = PIPELINE_ROOT / "registry"
+CONTAMINANT_REGISTRY_PATH = REGISTRY_DIR / "contaminant_registry.csv"
+REFERENCE_CROSSWALK_PATH = REGISTRY_DIR / "reference_crosswalk.csv"
 INCOMING_DIR = DATA_DIR / "00_incoming"
 MANIFEST_DIR = DATA_DIR / "01_manifest"
 RAW_SNAPSHOTS_DIR = DATA_DIR / "02_raw_snapshots"
