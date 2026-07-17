@@ -395,6 +395,8 @@ def load_crosswalk_bytes(
 
 
 def load_registry(path: Path) -> tuple[RegistryEntry, ...]:
+    """Read one registry CSV path and return strictly validated records."""
+
     return load_registry_bytes(path.read_bytes())
 
 
@@ -402,6 +404,8 @@ def load_crosswalk(
     path: Path,
     registry_entries: Iterable[RegistryEntry],
 ) -> tuple[TrackedCrosswalkEntry, ...]:
+    """Read one crosswalk CSV path and validate it against the registry."""
+
     return load_crosswalk_bytes(path.read_bytes(), registry_entries)
 
 

@@ -1,1 +1,4 @@
-# Compares old and new versions of the contaminant glossary to identify changes
+"""Planned Phase 4 comparison of releases by permanent contaminant ID.
+
+No production release-comparison behavior is implemented in this module yet.
+"""
