@@ -1,0 +1,2 @@
+data_pipeline/registry/contaminant_registry.csv text eol=lf
+data_pipeline/registry/reference_crosswalk.csv text eol=lf
