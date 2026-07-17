@@ -45,7 +45,13 @@ Report every error, warning, and reviewed override
 Load the permanent registry and reviewed reference crosswalk
         |
         v
-Future phases: snapshot, normalize, compare, and export website data
+Preserve an immutable snapshot and deterministic intake manifest
+        |
+        v
+Safely reuse exact retries and reject conflicting release identities
+        |
+        v
+Future phases: normalize, compare, and export website data
 ```
 
 ## What is implemented now
@@ -63,9 +69,29 @@ The current foundation can:
    crosswalk stored under `data_pipeline/registry/`.
 8. Prove the complete current relationship set against the real workbooks with
    automated tests while confirming the protected files remain unchanged.
+9. Read the two stable incoming filenames once and return their immutable
+   snapshots only after their workbook roles, schemas, and revisions form a
+   compatible pair.
+10. Tie each snapshot to an exact byte size and SHA-256 digest and inventory
+    required sheets, tables, headers, logical rows, and formulas without
+    publishing generated files.
+11. Copy the verified pair through a hidden staging directory and expose both
+    workbooks together under the versioned raw-snapshot path with one atomic
+    directory rename.
+12. Revalidate the raw pair and publish deterministic portable JSON containing
+    release identity, complete workbook inventory, hashes, sizes, revisions,
+    and explicit clean/local/unknown Git provenance.
+13. Treat an exact completed retry as a read-only no-op, recover an exact
+    raw-only attempt by publishing its missing manifest, and reject release-ID
+    or immutable workbook-revision collisions without overwriting history.
+14. Prove the complete public intake chain against authoritative read-only
+    inputs and disposable success, retry, recovery, collision, malformed-state,
+    mutation, and atomic-failure scenarios while independently checking the
+    published bytes and protected filesystem state.
 
-The current command-line interface only displays help. Routine intake,
-normalization, comparison, and website export commands are planned but not yet
+The current command-line interface only displays help. The incoming contract
+and complete intake publication are available as package code, but routine
+intake commands, normalization, comparison, and website export are not yet
 implemented.
 
 ## Permanent identity and reviewed relationships
@@ -149,7 +175,7 @@ The remaining implementation proceeds in stages:
 | Stage | Intended outcome | Status |
 | --- | --- | --- |
 | Bootstrap relationships | Permanent IDs, reviewed joins, Metadata, footnotes, and tracked assets | Complete |
-| Intake and snapshotting | Verify an incoming workbook pair and preserve immutable raw copies | Next |
+| Intake and snapshotting | Verify an incoming workbook pair, preserve immutable raw copies, and safely reconcile repeat attempts | Complete as package code; CLI remains later work |
 | Normalization and validation | Produce validated canonical tables and reports | Planned |
 | Comparison and release | Explain changes and orchestrate a complete release | Planned |
 | Website export | Produce deterministic public JSON from allowlisted fields | Planned |

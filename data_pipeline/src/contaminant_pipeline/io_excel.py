@@ -1,6 +1,8 @@
 """Read-only boundary for Excel workbook contents and structure."""
 
+from io import BytesIO
 from dataclasses import dataclass
+from hashlib import sha256
 from pathlib import Path
 import warnings as python_warnings
 from zipfile import BadZipFile
@@ -54,6 +56,8 @@ class WorkbookSnapshot:
     path: Path
     sheets: tuple[WorksheetSnapshot, ...]
     warnings: tuple[ExcelReadWarning, ...]
+    size_bytes: int | None = None
+    sha256: str | None = None
 
 
 class ExcelReadError(ValueError):
@@ -125,15 +129,16 @@ def read_workbook(path: str | Path) -> WorkbookSnapshot:
     read_warnings: list[ExcelReadWarning] = []
 
     try:
+        source_bytes = workbook_path.read_bytes()
         with python_warnings.catch_warnings(record=True) as library_warnings:
             python_warnings.simplefilter("always")
             formula_workbook = load_workbook(
-                workbook_path,
+                BytesIO(source_bytes),
                 data_only=False,
                 read_only=False,
             )
             cached_workbook = load_workbook(
-                workbook_path,
+                BytesIO(source_bytes),
                 data_only=True,
                 read_only=False,
             )
@@ -165,4 +170,6 @@ def read_workbook(path: str | Path) -> WorkbookSnapshot:
         path=workbook_path,
         sheets=sheets,
         warnings=tuple(read_warnings),
+        size_bytes=len(source_bytes),
+        sha256=sha256(source_bytes).hexdigest(),
     )

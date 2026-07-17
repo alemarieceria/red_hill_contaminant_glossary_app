@@ -183,16 +183,17 @@ class SyntheticWorkbookFixtureTests(unittest.TestCase):
         )
         original_digests = {path: sha256_digest(path) for path in fixture_paths}
         opened_paths = []
-        original_load_workbook = io_excel.load_workbook
+        original_read_bytes = Path.read_bytes
 
-        def recording_load_workbook(path, *args, **kwargs):
+        def recording_read_bytes(path):
             opened_paths.append(Path(path).resolve())
-            return original_load_workbook(path, *args, **kwargs)
+            return original_read_bytes(path)
 
         with patch.object(
-            io_excel,
-            "load_workbook",
-            side_effect=recording_load_workbook,
+            Path,
+            "read_bytes",
+            autospec=True,
+            side_effect=recording_read_bytes,
         ):
             for path in fixture_paths:
                 io_excel.read_workbook(path)
@@ -201,6 +202,7 @@ class SyntheticWorkbookFixtureTests(unittest.TestCase):
             {path.resolve() for path in fixture_paths},
             set(opened_paths),
         )
+        self.assertEqual(len(opened_paths), len(fixture_paths))
         self.assertNotIn(INCOMING_GLOSSARY_WORKBOOK.resolve(), opened_paths)
         self.assertNotIn(INCOMING_REFERENCES_WORKBOOK.resolve(), opened_paths)
         self.assertEqual(

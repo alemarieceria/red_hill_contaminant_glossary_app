@@ -22,6 +22,9 @@ io_excel.py
 metadata.py, identifiers.py, crosswalk.py, footnotes.py
         |
         v
+intake.py
+        |
+        v
 bootstrap_report.py
         |
         v
@@ -43,8 +46,9 @@ filename order.
 | --- | --- | --- | --- | --- |
 | `config.py` | Defines workbook names, sheet/table names, schema versions, and release-ID rules once | Configuration values | Validated release IDs and constants | `test_config_paths.py` |
 | `paths.py` | Defines repository and pipeline locations once | Release ID when needed | Consistent `Path` objects | `test_config_paths.py` |
-| `io_excel.py` | Reads workbook content without saving or keeping Excel files open | `.xlsx` path | Immutable `WorkbookSnapshot` | `test_io_excel.py` |
+| `io_excel.py` | Reads one exact workbook byte image without saving or keeping Excel files open | `.xlsx` path | Immutable `WorkbookSnapshot` with byte size and SHA-256 | `test_io_excel.py` |
 | `metadata.py` | Confirms which workbook is which and whether the pair is compatible | Workbook snapshots | `WorkbookMetadata` and `WorkbookCompatibility` | `test_metadata.py` |
+| `intake.py` | Reads and inventories the stable pair, atomically publishes raw bytes and deterministic JSON, and safely reconciles retries/collisions | Incoming directory or the preceding accepted-stage record | Immutable incoming, inventory, raw, manifest, and completed-intake records, or a contextual contract error | `test_intake.py`, `test_workbook_inventory.py`, `test_atomic_snapshot.py`, `test_intake_manifest.py`, `test_intake_collision.py`, `test_intake_end_to_end.py` |
 | `identifiers.py` | Validates, bootstraps, and extends permanent contaminant IDs | Legacy or issued IDs | Immutable `RHC-NNN` mappings | `test_identifiers.py` |
 | `crosswalk.py` | Resolves exact reference labels and explicit reviewed overrides | Glossary identities, reference labels, override mapping | Reference-label-to-ID entries | `test_crosswalk.py` |
 | `footnotes.py` | Checks footnote definitions and contaminant usages | Glossary snapshot and usage sources | Validated definitions and usages | `test_footnotes.py` |
@@ -67,7 +71,6 @@ contain no production behavior yet:
 
 | Module | Planned responsibility | Phase |
 | --- | --- | --- |
-| `intake.py` | Inspect incoming workbooks and publish immutable raw snapshots | 2 |
 | `validate.py` | Run complete structural, relationship, and scientific validation | 3 |
 | `process.py` | Produce normalized canonical tables and reports | 3 |
 | `compare.py` | Compare releases by permanent contaminant ID | 4 |
@@ -75,6 +78,10 @@ contain no production behavior yet:
 
 Do not assume a planned module works merely because its file exists. Each file
 states its unimplemented status in its module docstring.
+
+Phase 2.5 extends `intake.py` with a separate reconciliation layer. The focused
+raw and manifest publishers still reject existing targets; the coordinator
+validates history and decides whether to create, recover, reuse, or reject.
 
 ## Current execution path
 
@@ -95,6 +102,31 @@ The implemented bootstrap path is:
 The workbook reader and validators do not write Excel files. Asset freezing is
 an explicit, separately tested operation and refuses to overwrite different
 reviewed content.
+
+The implemented routine incoming path currently stops in memory:
+
+1. `read_incoming_pair` selects the two centralized stable filenames.
+2. `read_workbook` reads and closes each workbook exactly once.
+3. `extract_workbook_metadata` reads each declared Metadata table.
+4. `validate_workbook_compatibility` confirms roles and schema compatibility
+   and derives the combined release ID.
+5. A passing run returns both snapshots in one frozen `IncomingWorkbookPair`;
+   a failure raises `IncomingContractError` and creates no output.
+6. `inventory_incoming_pair` verifies required structure and produces frozen
+   workbook, worksheet, table, header, formula, row-count, and fingerprint
+   records without publishing anything.
+7. `publish_raw_snapshot` copies both accepted sources into a hidden sibling,
+   verifies their fingerprints, and exposes the complete versioned pair with
+   one directory rename.
+8. `publish_intake_manifest` revalidates the raw pair, records explicit local
+   Git provenance, serializes complete portable inventory JSON, and publishes
+   it with one temporary-file rename.
+9. `publish_or_reuse_intake` checks manifest history and existing final
+   artifacts, then returns a frozen `created`, `recovered`, or `existing`
+   result. Exact retries are read-only; conflicting identities fail closed.
+10. `test_intake_end_to_end.py` runs that public sequence against authoritative
+    read-only inputs and synthetic failure matrices, independently verifies
+    snapshot/manifest output, and proves protected paths remain unchanged.
 
 ## Python conventions used here
 
@@ -146,6 +178,12 @@ uv lock --check
 - [Immutable contaminant identifiers](components/immutable_contaminant_identifiers.md)
 - [Reference crosswalk](components/reference_crosswalk.md)
 - [Workbook Metadata compatibility](components/workbook_metadata_compatibility.md)
+- [Stable incoming workbook contract](components/stable_incoming_contract.md)
+- [Workbook inventory](components/workbook_inventory.md)
+- [Atomic raw snapshot](components/atomic_raw_snapshot.md)
+- [Intake manifest](components/intake_manifest.md)
+- [Intake collision and retry behavior](components/intake_collision_and_retry.md)
+- [Phase 2 intake acceptance tests](components/intake_acceptance_tests.md)
 - [Bootstrap validation report](components/bootstrap_validation_report.md)
 - [Bootstrap validation](components/bootstrap_validation.md)
 - [Durable registry assets](components/durable_registry_assets.md)

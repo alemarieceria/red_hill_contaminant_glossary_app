@@ -1,6 +1,8 @@
 from contextlib import contextmanager
+from hashlib import sha256
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 from uuid import uuid4
 
 from openpyxl import Workbook
@@ -45,9 +47,20 @@ class ExcelReaderTests(unittest.TestCase):
             workbook.close()
             original_bytes = path.read_bytes()
 
-            snapshot = read_workbook(path)
+            original_read_bytes = Path.read_bytes
+            with patch.object(
+                Path,
+                "read_bytes",
+                autospec=True,
+                side_effect=original_read_bytes,
+            ) as byte_reader:
+                snapshot = read_workbook(path)
 
             self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertEqual(byte_reader.call_count, 1)
+            self.assertEqual(byte_reader.call_args.args[0], path.resolve())
+            self.assertEqual(snapshot.size_bytes, len(original_bytes))
+            self.assertEqual(snapshot.sha256, sha256(original_bytes).hexdigest())
             self.assertEqual(snapshot.warnings, ())
             self.assertEqual([sheet.name for sheet in snapshot.sheets], ["Data"])
             data_sheet = snapshot.sheets[0]

@@ -4,16 +4,21 @@ from pathlib import Path
 
 from contaminant_pipeline.config import (
     FOOTNOTES_SHEET_NAME,
+    FOOTNOTES_HEADER_ROW,
     GLOSSARY_SHEET_NAME,
     GLOSSARY_TABLE_NAME,
     GLOSSARY_WORKBOOK_FILENAME,
     GLOSSARY_WORKBOOK_TYPE,
+    GLOSSARY_WORKSHEET_NAMES,
     INTRODUCTION_SHEET_NAME,
+    INTAKE_MANIFEST_SCHEMA_VERSION,
     METADATA_SHEET_NAME,
     METADATA_TABLE_NAME,
     REFERENCES_SHEET_NAME,
+    REFERENCES_HEADER_ROW,
     REFERENCES_WORKBOOK_FILENAME,
     REFERENCES_WORKBOOK_TYPE,
+    REFERENCES_WORKSHEET_NAMES,
     SUPPORTED_WORKBOOK_SCHEMA_VERSIONS,
     WORKBOOK_SCHEMA_VERSION,
     validate_release_id,
@@ -46,9 +51,20 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(FOOTNOTES_SHEET_NAME, "Footnotes")
         self.assertEqual(METADATA_SHEET_NAME, "Metadata")
         self.assertEqual(REFERENCES_SHEET_NAME, "Sheet1")
+        self.assertEqual(
+            GLOSSARY_WORKSHEET_NAMES,
+            ("Introduction", "Glossary", "Footnotes", "Metadata"),
+        )
+        self.assertEqual(
+            REFERENCES_WORKSHEET_NAMES,
+            ("Sheet1", "Metadata"),
+        )
+        self.assertEqual(FOOTNOTES_HEADER_ROW, 1)
+        self.assertEqual(REFERENCES_HEADER_ROW, 1)
         self.assertEqual(GLOSSARY_TABLE_NAME, "Table_1")
         self.assertEqual(METADATA_TABLE_NAME, "MetadataTable")
         self.assertEqual(WORKBOOK_SCHEMA_VERSION, "1.0.0")
+        self.assertEqual(INTAKE_MANIFEST_SCHEMA_VERSION, "1.0.0")
         self.assertEqual(SUPPORTED_WORKBOOK_SCHEMA_VERSIONS, {"1.0.0"})
 
     def test_accepts_valid_release_ids(self) -> None:
