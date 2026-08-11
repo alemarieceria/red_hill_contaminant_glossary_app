@@ -51,6 +51,12 @@ Choose the route that matches what you need to understand.
 - [Identity and relationship validation](components/identity_relationship_validation.md):
   How are release-aware stable IDs, exact reference joins, footnote joins, and
   possible duplicate candidates validated without changing source data?
+- [Scientific field validation](components/scientific_field_validation.md):
+  How are CASRNs, InChIKeys, formulas, N/A applicability, typed values, text,
+  and reference URLs checked without changing source data?
+- [Scientific review handoff](components/scientific_review_handoff.md): How are
+  unresolved scientific values, blank identifiers, permitted N/A identifiers,
+  and pending source descriptions presented for documented human review?
 - [Bootstrap validation report](components/bootstrap_validation_report.md): How
   are counts, findings, status, and maintainer-readable output represented?
 - [Bootstrap validation](components/bootstrap_validation.md): How are all

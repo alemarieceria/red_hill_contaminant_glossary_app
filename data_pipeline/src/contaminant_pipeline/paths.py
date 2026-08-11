@@ -45,6 +45,18 @@ def output_release_dir(release_id: object) -> Path:
     return OUTPUT_DIR / validate_release_id(release_id)
 
 
+def review_output_dir(release_id: object) -> Path:
+    """Return the ignored review-artifact directory for one data release."""
+
+    return OUTPUT_DIR / "reviews" / validate_release_id(release_id)
+
+
+def supervisor_review_workbook_path(release_id: object) -> Path:
+    """Return the standard Phase 3.3a supervisor review workbook path."""
+
+    return review_output_dir(release_id) / "supervisor_review_3_3.xlsx"
+
+
 def manifest_path(release_id: object) -> Path:
     """Return the manifest JSON path for a validated release ID."""
 

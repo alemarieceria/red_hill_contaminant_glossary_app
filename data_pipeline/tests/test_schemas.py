@@ -159,6 +159,22 @@ class ContaminantRecordTests(unittest.TestCase):
             SafewatersReviewMarker.UNRESOLVED,
         )
 
+    def test_accepts_explicit_not_applicable_scientific_identifiers(self) -> None:
+        values = valid_contaminant_values()
+        values.update(
+            {
+                "id_chem_formula": NotApplicable.VALUE,
+                "id_casrn": NotApplicable.VALUE,
+                "id_inchikey": NotApplicable.VALUE,
+            }
+        )
+
+        record = ContaminantRecord(**values)
+
+        self.assertEqual(record.id_chem_formula, NotApplicable.VALUE)
+        self.assertEqual(record.id_casrn, NotApplicable.VALUE)
+        self.assertEqual(record.id_inchikey, NotApplicable.VALUE)
+
     def test_rejects_missing_blank_and_unknown_values(self) -> None:
         missing = valid_contaminant_values()
         missing.pop("id_name")

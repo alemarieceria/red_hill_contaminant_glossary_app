@@ -16,7 +16,7 @@ Completed immutable intake
 3.2 stable IDs, references, footnotes, duplicate candidates
         |
         v
-3.3 scientific syntax, check digits, values, and URLs (next task)
+3.3 scientific syntax, check digits, values, and URLs
 ```
 
 `validate_identity_relationships` accepts only a
@@ -66,7 +66,8 @@ remains Phase 3.4.
 Exact case-sensitive names shared by distinct IDs are warnings. CASRN and
 InChIKey strings are split only on the literal ` | ` delimiter and exact tokens
 shared by distinct IDs are warnings. Exact placeholders `NA` and `N/A` are
-excluded. Syntax, normalization, and check-digit validity remain Phase 3.3.
+excluded. Syntax, N/A applicability, and check-digit validity are enforced by
+the following Phase 3.3 gate.
 
 Each `DuplicateIdentityCandidate` retains the source value, affected stable
 IDs, and source rows. These findings never merge rows, change an ID, or update
@@ -88,6 +89,9 @@ workbook, sheet, row, field, stable-ID, and source-value context. The validator
 collects independent problems when it is safe to continue. Any error raises
 `IdentityRelationshipValidationError` carrying all sorted findings and returns
 no partial usable result. Warning- and info-only runs succeed.
+
+The next gate is documented in
+[scientific field validation](scientific_field_validation.md).
 
 ## Scope boundary
 

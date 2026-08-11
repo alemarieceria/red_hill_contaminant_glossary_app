@@ -347,7 +347,7 @@ class ContaminantRecord(CanonicalModel):
         public=False,
         null_policy=NullPolicy.REQUIRED,
     )
-    id_chem_formula: NonBlankText = _canonical_field(
+    id_chem_formula: NonBlankText | NotApplicable = _canonical_field(
         owner=FieldOwner.GLOSSARY,
         public=True,
         null_policy=NullPolicy.REQUIRED,
@@ -358,13 +358,13 @@ class ContaminantRecord(CanonicalModel):
         null_policy=NullPolicy.UNKNOWN_ALLOWED,
         default=None,
     )
-    id_casrn: tuple[NonBlankText, ...] | None = _canonical_field(
+    id_casrn: tuple[NonBlankText, ...] | NotApplicable | None = _canonical_field(
         owner=FieldOwner.GLOSSARY,
         public=True,
         null_policy=NullPolicy.UNKNOWN_ALLOWED,
         default=None,
     )
-    id_inchikey: tuple[NonBlankText, ...] | None = _canonical_field(
+    id_inchikey: tuple[NonBlankText, ...] | NotApplicable | None = _canonical_field(
         owner=FieldOwner.GLOSSARY,
         public=True,
         null_policy=NullPolicy.UNKNOWN_ALLOWED,
