@@ -51,7 +51,10 @@ Preserve an immutable snapshot and deterministic intake manifest
 Safely reuse exact retries and reject conflicting release identities
         |
         v
-Future phases: normalize, compare, and export website data
+Validate immutable raw workbook structure and exact schema headers
+        |
+        v
+Future tasks: validate values, normalize, compare, and export website data
 ```
 
 ## What is implemented now
@@ -88,11 +91,14 @@ The current foundation can:
     inputs and disposable success, retry, recovery, collision, malformed-state,
     mutation, and atomic-failure scenarios while independently checking the
     published bytes and protected filesystem state.
+15. Reopen only the completed intake's immutable raw snapshots, recheck their
+    accepted identities and structure, and require the exact schema-specific
+    named columns before later Phase 3 validation can process values.
 
-The current command-line interface only displays help. The incoming contract
-and complete intake publication are available as package code, but routine
-intake commands, normalization, comparison, and website export are not yet
-implemented.
+The current command-line interface only displays help. Intake publication and
+structural workbook contract validation are available as package code, but
+routine commands, relationship/scientific validation, normalization,
+comparison, and website export are not yet implemented.
 
 ## Permanent identity and reviewed relationships
 
@@ -176,7 +182,7 @@ The remaining implementation proceeds in stages:
 | --- | --- | --- |
 | Bootstrap relationships | Permanent IDs, reviewed joins, Metadata, footnotes, and tracked assets | Complete |
 | Intake and snapshotting | Verify an incoming workbook pair, preserve immutable raw copies, and safely reconcile repeat attempts | Complete as package code; CLI remains later work |
-| Normalization and validation | Produce validated canonical tables and reports | Planned |
+| Normalization and validation | Structural workbook contract complete; relationship, scientific, processing, and reports remain | In progress |
 | Comparison and release | Explain changes and orchestrate a complete release | Planned |
 | Website export | Produce deterministic public JSON from allowlisted fields | Planned |
 | Automation and handoff | CI, deployment, enrichment review, and maintainer procedures | Planned |
