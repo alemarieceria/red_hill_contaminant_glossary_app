@@ -59,7 +59,7 @@ filename order.
 | `bootstrap_validation.py` | Runs all bootstrap relationship checks in dependency order | Two workbook snapshots and overrides | `ValidatedBootstrap`, or an error carrying the failed report | `test_bootstrap_validation.py` |
 | `registry_assets.py` | Strictly loads, serializes, compares, and protects permanent CSV assets | Validated bootstrap or tracked CSV bytes | Registry/crosswalk records and deterministic CSV | `test_registry_assets.py` |
 | `schemas.py` | Defines normalized field names, types, allowed values, ownership, null rules, and publication flags | Canonical field values | Validated immutable records | `test_schemas.py` |
-| `validate.py` | Revalidates completed raw snapshots and enforces schema-specific workbook headers before Phase 3 processing | Completed `IntakePublication` | Frozen `ValidatedWorkbookContract` or contextual contract error | `test_workbook_contract_validation.py` |
+| `validate.py` | Revalidates completed raw snapshots, enforces schema-specific headers, then validates release-aware stable identities and relationships | Completed intake or preceding validated contract | Frozen workbook contract and identity/relationship result, or contextual validation errors | `test_workbook_contract_validation.py`, `test_identity_relationship_validation.py` |
 | `cli.py` | Provides the installed command-line boundary | Command-line arguments | Help now; pipeline commands later | `test_cli.py` |
 | `__main__.py` | Makes `python -m contaminant_pipeline` invoke the CLI | Python module execution | CLI exit code | `test_cli.py` |
 
@@ -131,7 +131,7 @@ The implemented routine incoming path currently stops in memory:
     read-only inputs and synthetic failure matrices, independently verifies
     snapshot/manifest output, and proves protected paths remain unchanged.
 
-The implemented Phase 3 path currently adds one structural gate:
+The implemented Phase 3 path currently adds structural and relationship gates:
 
 1. `validate_workbook_contract` accepts only a completed `IntakePublication`.
 2. It reads the two versioned raw workbooks once, never `data/00_incoming`.
@@ -140,11 +140,20 @@ The implemented Phase 3 path currently adds one structural gate:
 4. The observed inventories must equal the completed intake inventories.
 5. Schema `1.0.0` requires the exact approved glossary, footnote, Metadata, and
    reference header names; column order is non-semantic.
-6. Success returns frozen raw snapshots and inventory for later Phase 3 tasks;
-   failure raises `WorkbookContractError` and creates no output.
+6. Success returns frozen raw snapshots and inventory to
+   `validate_identity_relationships`; structural failure raises
+   `WorkbookContractError` and creates no output.
+7. The 3.2 gate loads registry and crosswalk state applicable to that release
+   and resolves literal legacy IDs only through the registry.
+8. It joins exact reference labels through eligible reviewed crosswalk rows and
+   reuses the footnote validator with resolved stable IDs.
+9. It reports exact duplicate name, CASRN, and InChIKey candidates as warnings
+   without merging, and returns a frozen result when there are no errors.
+10. Any error raises `IdentityRelationshipValidationError` with all safely
+    collectible, deterministically sorted findings and creates no output.
 
-Relationship, scientific, Excel-derived, processing, report, determinism, and
-CLI validation remain unimplemented tasks 3.2 through 4.3.
+Scientific, Excel-derived, processing, report, broader determinism, and CLI
+validation remain unimplemented tasks 3.3 through 4.3.
 
 ## Python conventions used here
 
@@ -203,6 +212,7 @@ uv lock --check
 - [Intake collision and retry behavior](components/intake_collision_and_retry.md)
 - [Phase 2 intake acceptance tests](components/intake_acceptance_tests.md)
 - [Workbook contract validation](components/workbook_contract_validation.md)
+- [Identity and relationship validation](components/identity_relationship_validation.md)
 - [Bootstrap validation report](components/bootstrap_validation_report.md)
 - [Bootstrap validation](components/bootstrap_validation.md)
 - [Durable registry assets](components/durable_registry_assets.md)

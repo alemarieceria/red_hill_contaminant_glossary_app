@@ -48,6 +48,9 @@ Choose the route that matches what you need to understand.
 - [Workbook contract validation](components/workbook_contract_validation.md):
   How does Phase 3 revalidate immutable raw snapshots and enforce the exact
   schema-specific named columns before processing?
+- [Identity and relationship validation](components/identity_relationship_validation.md):
+  How are release-aware stable IDs, exact reference joins, footnote joins, and
+  possible duplicate candidates validated without changing source data?
 - [Bootstrap validation report](components/bootstrap_validation_report.md): How
   are counts, findings, status, and maintainer-readable output represented?
 - [Bootstrap validation](components/bootstrap_validation.md): How are all

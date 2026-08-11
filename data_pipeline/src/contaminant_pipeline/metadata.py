@@ -1,8 +1,6 @@
 """Extract and validate authoritative workbook Metadata."""
 
 from dataclasses import dataclass
-from datetime import datetime
-
 from openpyxl.utils.cell import coordinate_to_tuple, range_boundaries
 
 from .config import (
@@ -11,6 +9,7 @@ from .config import (
     METADATA_TABLE_NAME,
     REFERENCES_WORKBOOK_TYPE,
     SUPPORTED_WORKBOOK_SCHEMA_VERSIONS,
+    release_order_key,
     validate_release_id,
 )
 from .io_excel import WorkbookSnapshot
@@ -170,15 +169,6 @@ def extract_workbook_metadata(snapshot: WorkbookSnapshot) -> WorkbookMetadata:
         ) from error
 
 
-def _revision_order_key(revision: str) -> tuple[datetime, int]:
-    """Return chronological and same-day ordering for a valid revision."""
-
-    validate_release_id(revision)
-    date_text, separator, suffix = revision.partition("-r")
-    revision_number = int(suffix) if separator else 1
-    return datetime.strptime(date_text, "%Y%m%d"), revision_number
-
-
 def validate_workbook_compatibility(
     glossary_metadata: WorkbookMetadata,
     references_metadata: WorkbookMetadata,
@@ -219,7 +209,7 @@ def validate_workbook_compatibility(
     references_revision = references_metadata.workbook_revision
     release_id = max(
         (glossary_revision, references_revision),
-        key=_revision_order_key,
+        key=release_order_key,
     )
     return WorkbookCompatibility(
         glossary_metadata=glossary_metadata,

@@ -64,3 +64,12 @@ def validate_release_id(value: object) -> str:
         raise ValueError("release ID contains an invalid calendar date") from error
 
     return value
+
+
+def release_order_key(value: object) -> tuple[datetime, int]:
+    """Return chronological and same-day ordering for a release ID."""
+
+    release_id = validate_release_id(value)
+    date_text, separator, suffix = release_id.partition("-r")
+    revision_number = int(suffix) if separator else 1
+    return datetime.strptime(date_text, "%Y%m%d"), revision_number

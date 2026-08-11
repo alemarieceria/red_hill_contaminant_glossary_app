@@ -3,7 +3,6 @@
 from collections.abc import Iterable
 import csv
 from dataclasses import dataclass
-from datetime import datetime
 from enum import StrEnum
 from io import StringIO
 from pathlib import Path
@@ -12,7 +11,7 @@ import tempfile
 
 from .bootstrap_report import BootstrapReportStatus
 from .bootstrap_validation import ValidatedBootstrap
-from .config import validate_release_id
+from .config import release_order_key, validate_release_id
 from .crosswalk import ReferenceResolutionMethod
 from .identifiers import contaminant_id_number
 from .paths import REGISTRY_DIR
@@ -50,12 +49,6 @@ def _exact_nonblank_text(value: object, field_name: str) -> str:
     if value != value.strip():
         raise ValueError(f"{field_name} must not have surrounding whitespace")
     return value
-
-
-def _release_order_key(value: str) -> tuple[datetime, int]:
-    validate_release_id(value)
-    date_text, separator, suffix = value.partition("-r")
-    return datetime.strptime(date_text, "%Y%m%d"), int(suffix) if separator else 1
 
 
 @dataclass(frozen=True)
@@ -96,7 +89,7 @@ class RegistryEntry:
                     "retired registry entries require a retirement release"
                 )
             validate_release_id(self.retired_release_id)
-            if _release_order_key(self.retired_release_id) < _release_order_key(
+            if release_order_key(self.retired_release_id) < release_order_key(
                 self.issued_release_id
             ):
                 raise ValueError("retirement release cannot precede issuance")
