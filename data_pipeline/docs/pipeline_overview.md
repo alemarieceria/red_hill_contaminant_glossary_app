@@ -36,12 +36,6 @@ Read workbook structure and values without editing Excel
 Check workbook identity, schema versions, and revisions
         |
         v
-Connect contaminants, references, and footnotes using permanent IDs
-        |
-        v
-Report every error, warning, and reviewed override
-        |
-        v
 Load the permanent registry and reviewed reference crosswalk
         |
         v
@@ -54,7 +48,10 @@ Safely reuse exact retries and reject conflicting release identities
 Validate immutable raw workbook structure and exact schema headers
         |
         v
-Future tasks: validate values, normalize, compare, and export website data
+Resolve release-aware IDs, references, footnotes, and duplicate candidates
+        |
+        v
+Future tasks: validate scientific values, normalize, compare, and export
 ```
 
 ## What is implemented now
@@ -94,11 +91,14 @@ The current foundation can:
 15. Reopen only the completed intake's immutable raw snapshots, recheck their
     accepted identities and structure, and require the exact schema-specific
     named columns before later Phase 3 validation can process values.
+16. Resolve each legacy workbook ID through the registry state applicable to
+    that release, join exact reviewed reference labels and footnotes, and
+    report possible exact name/CASRN/InChIKey duplicates without merging them.
 
 The current command-line interface only displays help. Intake publication and
-structural workbook contract validation are available as package code, but
-routine commands, relationship/scientific validation, normalization,
-comparison, and website export are not yet implemented.
+structural plus identity/relationship validation are available as package
+code, but routine commands, scientific validation, normalization, comparison,
+and website export are not yet implemented.
 
 ## Permanent identity and reviewed relationships
 
@@ -182,7 +182,7 @@ The remaining implementation proceeds in stages:
 | --- | --- | --- |
 | Bootstrap relationships | Permanent IDs, reviewed joins, Metadata, footnotes, and tracked assets | Complete |
 | Intake and snapshotting | Verify an incoming workbook pair, preserve immutable raw copies, and safely reconcile repeat attempts | Complete as package code; CLI remains later work |
-| Normalization and validation | Structural workbook contract complete; relationship, scientific, processing, and reports remain | In progress |
+| Normalization and validation | Structural and identity/relationship gates complete; scientific, processing, and reports remain | In progress |
 | Comparison and release | Explain changes and orchestrate a complete release | Planned |
 | Website export | Produce deterministic public JSON from allowlisted fields | Planned |
 | Automation and handoff | CI, deployment, enrichment review, and maintainer procedures | Planned |
