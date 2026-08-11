@@ -16,8 +16,11 @@ outputs but never in public JSON.
 - `integer range` is a closed inclusive pair such as `1 - 3`.
 - `regulatory value` is a decimal in the stated unit, a documented numeric
   range, or a documented action-level value. Raw text is retained in reports.
-- "Unknown" means a blank source cell becomes null.
-- "N/A" means an explicit not-applicable state is allowed.
+- "Unknown" means a true blank source cell, or an exact zero-length string in
+  an optional text field, becomes null. Whitespace-only text remains invalid.
+- "N/A" means an explicit not-applicable state is allowed. Permission to use
+  it does not prove the scientific decision; identifier N/A states remain
+  visible for documented review.
 
 ## Contaminant identity and classification
 
@@ -27,10 +30,10 @@ outputs but never in public JSON.
 | Compound name given in datasets | `id_name` | text | Glossary | No | — | Yes |
 | Compound name for sorting | `id_sort_name` | text | Glossary | No | — | Yes |
 | CG ID # | `id_legacy_cg` | positive integer | Glossary | No | — | No |
-| Chemical formula | `id_chem_formula` | text | Glossary | No | — | Yes |
+| Chemical formula | `id_chem_formula` | text or N/A | Glossary | No | — | Yes |
 | a.k.a.s | `id_aka` | text[] split on ` | ` | Glossary | Unknown | — | Yes |
-| CASRN | `id_casrn` | text[] split on ` | ` | Glossary | Unknown | — | Yes |
-| InChIKey | `id_inchikey` | text[] split on ` | ` | Glossary | Unknown | — | Yes |
+| CASRN | `id_casrn` | text[] split on ` | `, or N/A | Glossary | Unknown | — | Yes |
+| InChIKey | `id_inchikey` | text[] split on ` | `, or N/A | Glossary | Unknown | — | Yes |
 | Primary | `class_primary` | primary enum | Glossary | No | — | Yes |
 | Secondary | `class_secondary` | secondary enum | Glossary | Unknown | — | Yes |
 | Tertiary | `class_tertiary` | tertiary enum | Glossary | Unknown | — | Yes |
@@ -61,6 +64,16 @@ normalization.
 
 The pesticide enum is `pesticide`, `pesticide_product_contaminant`,
 `not_pesticide`, `unknown`, or `not_applicable`.
+
+For chemical formula, CASRN, and InChIKey, schema `1.0.0` accepts exact `NA`
+or `N/A` as the explicit not-applicable state only when `Primary` is `Mixture`
+or `Non-compound measurement`, or when a stable-ID exception is documented.
+`RHC-071` has an InChIKey exception for its combined cis/trans result. A blank
+CASRN or InChIKey remains unknown and is not interchangeable with N/A. Mixture
+classification permits but does not require N/A because a defined mixture may
+still have a registered CASRN. Blank CASRN/InChIKey values and permitted N/A
+states therefore produce review warnings even though their representations are
+valid under the schema.
 
 ## Composition and functional groups
 
@@ -125,6 +138,11 @@ ordinary strings. Stockholm values are `A` or `A (as industrial chemical), C
 
 The `!!!!` value is preserved only in private validation output as an unresolved
 legacy review marker. It is never converted to a boolean or published.
+
+For the optional `Sources` field, a true blank or exact zero-length string is
+canonical null and produces a pending-source warning. Text with leading,
+trailing, or only whitespace is invalid; the pipeline does not silently trim
+it.
 
 ## References and footnotes
 

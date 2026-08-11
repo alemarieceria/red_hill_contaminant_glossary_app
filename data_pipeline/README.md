@@ -35,6 +35,10 @@ The implemented foundation can:
 - resolve exact reference labels and explicit reviewed overrides without fuzzy
   matching;
 - validate footnote definitions and contaminant usages;
+- validate scientific field syntax and controlled values while retaining
+  explicit unknown and not-applicable meanings;
+- produce a separate release-scoped supervisor review workbook for unresolved
+  scientific values, identifiers, and pending source descriptions;
 - build deterministic pass/fail reports with counts and source context;
 - load, serialize, and protect the durable registry and reference crosswalk;
 - verify all current relationships against the authoritative workbooks without

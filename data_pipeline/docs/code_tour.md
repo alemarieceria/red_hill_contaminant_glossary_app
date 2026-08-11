@@ -28,6 +28,12 @@ intake.py
 validate.py
         |
         v
+scientific_validation.py
+        |
+        v
+scientific_review.py
+        |
+        v
 bootstrap_report.py
         |
         v
@@ -60,6 +66,8 @@ filename order.
 | `registry_assets.py` | Strictly loads, serializes, compares, and protects permanent CSV assets | Validated bootstrap or tracked CSV bytes | Registry/crosswalk records and deterministic CSV | `test_registry_assets.py` |
 | `schemas.py` | Defines normalized field names, types, allowed values, ownership, null rules, and publication flags | Canonical field values | Validated immutable records | `test_schemas.py` |
 | `validate.py` | Revalidates completed raw snapshots, enforces schema-specific headers, then validates release-aware stable identities and relationships | Completed intake or preceding validated contract | Frozen workbook contract and identity/relationship result, or contextual validation errors | `test_workbook_contract_validation.py`, `test_identity_relationship_validation.py` |
+| `scientific_validation.py` | Validates literal scientific/source values and explicit N/A applicability after stable identities resolve | `ValidatedIdentityRelationships` | Frozen typed scientific values, or deterministic contextual findings | `test_scientific_validation.py` |
+| `scientific_review.py` | Builds and reconciles stable supervisor review rows and writes a separate release-scoped workbook | `ValidatedIdentityRelationships`, optional evidence proposals, and cleanup records | Frozen review package, `.xlsx` handoff, or reconciliation statuses | `test_scientific_review.py` |
 | `cli.py` | Provides the installed command-line boundary | Command-line arguments | Help now; pipeline commands later | `test_cli.py` |
 | `__main__.py` | Makes `python -m contaminant_pipeline` invoke the CLI | Python module execution | CLI exit code | `test_cli.py` |
 
@@ -131,7 +139,8 @@ The implemented routine incoming path currently stops in memory:
     read-only inputs and synthetic failure matrices, independently verifies
     snapshot/manifest output, and proves protected paths remain unchanged.
 
-The implemented Phase 3 path currently adds structural and relationship gates:
+The implemented Phase 3 path currently adds structural, relationship, and
+scientific-value gates:
 
 1. `validate_workbook_contract` accepts only a completed `IntakePublication`.
 2. It reads the two versioned raw workbooks once, never `data/00_incoming`.
@@ -151,9 +160,31 @@ The implemented Phase 3 path currently adds structural and relationship gates:
    without merging, and returns a frozen result when there are no errors.
 10. Any error raises `IdentityRelationshipValidationError` with all safely
     collectible, deterministically sorted findings and creates no output.
+11. `validate_scientific_fields` accepts only the completed 3.2 result and
+    extracts values from the same immutable raw snapshots.
+12. It validates CASRN check digits, InChIKey and chemical-formula syntax,
+    classifications, strict types/nulls, counts, regulatory values, text, and
+    HTTP(S) reference URLs.
+13. Blank remains unknown while approved mixture/non-compound `NA` or `N/A`
+    becomes an explicit `NotApplicable` value; the `RHC-071` total-isomer
+    InChIKey exception is keyed only by stable ID.
+14. Success returns frozen typed records with raw values and retained formula
+    context. Errors raise `ScientificFieldValidationError` with all safely
+    collectible sorted findings and create no output.
+15. `inspect_scientific_fields` exposes the same deterministic findings for
+    review-package construction without pretending a failing validation passed.
+16. `build_scientific_review_package` turns scientific errors, pending source
+    descriptions, blank identifiers, and permitted identifier N/A states into
+    stable review rows with exact workbook cell context.
+17. `write_supervisor_review_workbook` creates four explicit sheets only under
+    the ignored release-scoped output directory; it never edits source Excel.
+18. After approved data corrections, `reconcile_scientific_review_items`
+    classifies prior rows as resolved, still failing, or superseded.
 
-Scientific, Excel-derived, processing, report, broader determinism, and CLI
-validation remain unimplemented tasks 3.3 through 4.3.
+Excel-derived, processing, report, broader determinism, and CLI validation
+remain unimplemented tasks 3.4 through 4.3. The current authoritative snapshot
+reports 21 errors and 57 review warnings before the separately preserved B/C
+cleanup is applied. The supervisor handoff contains 63 review rows.
 
 ## Python conventions used here
 
@@ -213,6 +244,8 @@ uv lock --check
 - [Phase 2 intake acceptance tests](components/intake_acceptance_tests.md)
 - [Workbook contract validation](components/workbook_contract_validation.md)
 - [Identity and relationship validation](components/identity_relationship_validation.md)
+- [Scientific field validation](components/scientific_field_validation.md)
+- [Scientific review handoff](components/scientific_review_handoff.md)
 - [Bootstrap validation report](components/bootstrap_validation_report.md)
 - [Bootstrap validation](components/bootstrap_validation.md)
 - [Durable registry assets](components/durable_registry_assets.md)

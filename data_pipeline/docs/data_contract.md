@@ -253,7 +253,7 @@ The pipeline preserves three different meanings:
 
 | Source value | Canonical meaning |
 | --- | --- |
-| Blank cell | Unknown or not supplied; canonical null |
+| Blank cell, or exact `""` in an optional text field | Unknown or not supplied; canonical null |
 | Boolean `FALSE` | Explicitly reviewed false; canonical `false` |
 | Text `N/A` | The field does not apply; canonical not-applicable state |
 
@@ -261,6 +261,23 @@ A blank boolean is not converted to `false`, and `N/A` is not converted to a
 blank. Whitespace-only text is invalid rather than meaningful data. The legacy
 atom-count token `NA` is accepted only in the `C`, `N`, `F`, `Cl`, and `Br`
 source columns and maps explicitly to the canonical not-applicable state.
+
+Schema `1.0.0` also retains exact `NA` or `N/A` in chemical formula, CASRN,
+and InChIKey as not applicable when the row is classified as `Mixture` or
+`Non-compound measurement`, or a reviewed stable-ID exception exists.
+`RHC-071` has an InChIKey exception for its combined cis/trans result. This is
+permission, not a requirement: some defined mixtures have CASRNs, so a real
+valid identifier remains acceptable. Blank identifiers remain unknown rather
+than not applicable. These rules use classification and stable identity, never
+name inference. Every blank CASRN/InChIKey and every permitted identifier N/A
+state stays visible as a non-blocking review item because format permission is
+not scientific verification.
+
+The optional glossary `Sources` description treats a true blank or exact
+zero-length string as null and reports it as pending. Leading, trailing, or
+whitespace-only content remains an error. Universal trimming is prohibited
+because it could change identifiers, delimiters, controlled values, and source
+labels without review.
 
 ### Pesticide status
 

@@ -85,6 +85,7 @@ class ValidationCategory(StrEnum):
     REFERENCES = "references"
     FOOTNOTES = "footnotes"
     DUPLICATES = "duplicates"
+    SCIENTIFIC = "scientific"
 
 
 @dataclass(frozen=True)
@@ -169,6 +170,7 @@ _CATEGORY_ORDER = MappingProxyType(
         ValidationCategory.REFERENCES: 1,
         ValidationCategory.FOOTNOTES: 2,
         ValidationCategory.DUPLICATES: 3,
+        ValidationCategory.SCIENTIFIC: 4,
     }
 )
 
@@ -192,6 +194,14 @@ def _sorted_findings(
     findings: Iterable[ValidationFinding],
 ) -> tuple[ValidationFinding, ...]:
     return tuple(sorted(findings, key=_finding_order_key))
+
+
+def sort_validation_findings(
+    findings: Iterable[ValidationFinding],
+) -> tuple[ValidationFinding, ...]:
+    """Return findings in the shared deterministic validation order."""
+
+    return _sorted_findings(findings)
 
 
 class IdentityRelationshipValidationError(ValueError):

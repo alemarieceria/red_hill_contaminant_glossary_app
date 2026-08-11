@@ -51,7 +51,13 @@ Validate immutable raw workbook structure and exact schema headers
 Resolve release-aware IDs, references, footnotes, and duplicate candidates
         |
         v
-Future tasks: validate scientific values, normalize, compare, and export
+Validate scientific values, explicit N/A states, and reference URLs
+        |
+        v
+Create a separate supervisor review workbook for unresolved decisions
+        |
+        v
+Future tasks: validate Excel-derived meanings, normalize, compare, and export
 ```
 
 ## What is implemented now
@@ -94,11 +100,20 @@ The current foundation can:
 16. Resolve each legacy workbook ID through the registry state applicable to
     that release, join exact reviewed reference labels and footnotes, and
     report possible exact name/CASRN/InChIKey duplicates without merging them.
+17. Validate CASRN check digits, InChIKey and chemical-formula syntax, exact
+    categorical/null states, counts, regulatory values, text, and HTTP(S)
+    reference URLs while preserving approved mixture/non-compound N/A states.
+18. Keep optional pending source descriptions non-blocking, keep blank and
+    permitted-N/A identifiers visible for review, and create a separate
+    release-scoped supervisor workbook without editing authoritative inputs.
 
 The current command-line interface only displays help. Intake publication and
-structural plus identity/relationship validation are available as package
-code, but routine commands, scientific validation, normalization, comparison,
-and website export are not yet implemented.
+structural, identity/relationship, and scientific validation are available as
+package code, but routine commands, Excel-derived validation, normalization,
+comparison, and website export are not yet implemented. Before the separately
+preserved B/C cleanup is applied, the current snapshot produces 21 errors and
+57 review warnings. The 3.3a handoff converts the relevant items into 63
+supervisor review rows without changing the workbooks.
 
 ## Permanent identity and reviewed relationships
 
@@ -127,6 +142,8 @@ The pipeline fails explicitly instead of guessing. Examples include:
 - an ambiguous glossary name;
 - a reference label with no exact match or reviewed override;
 - an unknown footnote ID;
+- a malformed or misplaced N/A placeholder;
+- an invalid CASRN check digit, InChIKey, formula, regulatory value, or URL;
 - a removed, reused, or reactivated registry ID; or
 - a tracked CSV whose bytes or columns do not follow the durable format.
 
@@ -182,7 +199,7 @@ The remaining implementation proceeds in stages:
 | --- | --- | --- |
 | Bootstrap relationships | Permanent IDs, reviewed joins, Metadata, footnotes, and tracked assets | Complete |
 | Intake and snapshotting | Verify an incoming workbook pair, preserve immutable raw copies, and safely reconcile repeat attempts | Complete as package code; CLI remains later work |
-| Normalization and validation | Structural and identity/relationship gates complete; scientific, processing, and reports remain | In progress |
+| Normalization and validation | Structural, identity/relationship, scientific-value, and supervisor-review components are implemented; current pre-cleanup data has 21 errors and 57 review warnings; Excel-derived checks, processing, and reports remain | In progress |
 | Comparison and release | Explain changes and orchestrate a complete release | Planned |
 | Website export | Produce deterministic public JSON from allowlisted fields | Planned |
 | Automation and handoff | CI, deployment, enrichment review, and maintainer procedures | Planned |
