@@ -135,7 +135,7 @@ class PhaseZeroBootstrapEndToEndTests(unittest.TestCase):
 
         self.assertEqual(first, second)
         self.assertEqual(first.report.status, BootstrapReportStatus.PASSED)
-        self.assertEqual(first.compatibility.data_release_id, "20260716")
+        self.assertEqual(first.compatibility.data_release_id, "20260810")
         self.assertFalse(
             any(
                 finding.severity is BootstrapFindingSeverity.ERROR
@@ -157,8 +157,20 @@ class PhaseZeroBootstrapEndToEndTests(unittest.TestCase):
         proposal = propose_registry_assets(first)
         registry = load_registry(CONTAMINANT_REGISTRY_PATH)
         crosswalk = load_crosswalk(REFERENCE_CROSSWALK_PATH, registry)
-        self.assertEqual(registry, proposal.registry_entries)
-        self.assertEqual(crosswalk, proposal.crosswalk_entries)
+        self.assertEqual(
+            registry,
+            tuple(
+                replace(entry, issued_release_id="20260716")
+                for entry in proposal.registry_entries
+            ),
+        )
+        self.assertEqual(
+            crosswalk,
+            tuple(
+                replace(entry, reviewed_release_id="20260716")
+                for entry in proposal.crosswalk_entries
+            ),
+        )
 
         identity_by_id = {
             identity.id_contaminant: identity.id_name
@@ -176,6 +188,9 @@ class PhaseZeroBootstrapEndToEndTests(unittest.TestCase):
             )
             self.assertEqual(entry.status, RegistryStatus.ACTIVE)
             self.assertEqual(entry.issued_release_id, "20260716")
+        self.assertTrue(
+            all(entry.reviewed_release_id == "20260716" for entry in crosswalk)
+        )
 
     def test_exact_and_reviewed_override_relationships_are_frozen(self) -> None:
         validated = self.validate_authoritative_pair()

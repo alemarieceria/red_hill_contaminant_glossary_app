@@ -261,7 +261,7 @@ class AuthoritativeBootstrapValidationTests(unittest.TestCase):
         )
 
         self.assertEqual(result.report.status, BootstrapReportStatus.PASSED)
-        self.assertEqual(result.compatibility.data_release_id, "20260716")
+        self.assertEqual(result.compatibility.data_release_id, "20260810")
         self.assertEqual(
             result.report.counts,
             result.report.counts.__class__(

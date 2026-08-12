@@ -389,8 +389,26 @@ class AuthoritativeRegistryAssetTests(unittest.TestCase):
         registry = load_registry(CONTAMINANT_REGISTRY_PATH)
         crosswalk = load_crosswalk(REFERENCE_CROSSWALK_PATH, registry)
 
-        self.assertEqual(registry, proposal.registry_entries)
-        self.assertEqual(crosswalk, proposal.crosswalk_entries)
+        self.assertEqual(
+            registry,
+            tuple(
+                replace(entry, issued_release_id="20260716")
+                for entry in proposal.registry_entries
+            ),
+        )
+        self.assertEqual(
+            crosswalk,
+            tuple(
+                replace(entry, reviewed_release_id="20260716")
+                for entry in proposal.crosswalk_entries
+            ),
+        )
+        self.assertTrue(
+            all(entry.issued_release_id == "20260716" for entry in registry)
+        )
+        self.assertTrue(
+            all(entry.reviewed_release_id == "20260716" for entry in crosswalk)
+        )
         self.assertEqual(len(registry), 152)
         self.assertEqual(len(crosswalk), 133)
         self.assertEqual(registry[0].id_contaminant, "RHC-001")
