@@ -365,6 +365,7 @@ class AuthoritativeScientificReviewTests(unittest.TestCase):
                 _contract(INCOMING_DIR, Path(temporary))
             )
             package = build_scientific_review_package(identities)
+            self.assertEqual(package.data_release_id, "20260810")
             counts = {}
             for item in package.review_items:
                 counts[item.review_type] = counts.get(item.review_type, 0) + 1

@@ -134,17 +134,17 @@ review cell alone as proof that authoritative data changed.
 
 ## Current authoritative review baseline
 
-Before the separately preserved B/C cleanup is applied, 3.3a records:
+For glossary revision and derived release `20260810`, 3.3a records:
 
-- 21 errors: one alias delimiter, one CASRN, five formulas, and fourteen
-  narrative values with surrounding whitespace;
+- 6 errors: one CASRN and five formulas;
 - 57 warnings: six pending source descriptions, 32 blank CASRN/InChIKey
   fields, and 19 permitted-but-unverified CASRN/InChIKey N/A fields; and
 - 63 supervisor review rows: six blocking scientific values, six pending
   sources, 32 blank identifiers, and 19 N/A identifiers.
 
-The alias/whitespace corrections are preserved separately for a later
-data-only branch. Phase 3.3a neither applies nor deletes them.
+The applied alias/whitespace corrections appear as 15 `Resolved Cleanup` audit
+rows. They do not count as current supervisor review items, and the review
+generator does not apply or alter them.
 
 ## Tests
 

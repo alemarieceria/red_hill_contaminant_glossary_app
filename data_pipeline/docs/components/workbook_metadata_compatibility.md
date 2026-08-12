@@ -70,10 +70,10 @@ The current authoritative pair declares:
 
 | Workbook | Type | Schema | Revision |
 | --- | --- | --- | --- |
-| Contaminant glossary | `contaminant_glossary` | `1.0.0` | `20260716` |
+| Contaminant glossary | `contaminant_glossary` | `1.0.0` | `20260810` |
 | References | `references` | `1.0.0` | `20260716` |
 
-Their derived release ID is `20260716`. The real-workbook test reads both files
+Their derived release ID is `20260810`. The real-workbook test reads both files
 and verifies their bytes are unchanged afterward.
 
 ## Implementation and tests

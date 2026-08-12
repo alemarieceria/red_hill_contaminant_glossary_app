@@ -110,10 +110,11 @@ The current foundation can:
 The current command-line interface only displays help. Intake publication and
 structural, identity/relationship, and scientific validation are available as
 package code, but routine commands, Excel-derived validation, normalization,
-comparison, and website export are not yet implemented. Before the separately
-preserved B/C cleanup is applied, the current snapshot produces 21 errors and
-57 review warnings. The 3.3a handoff converts the relevant items into 63
-supervisor review rows without changing the workbooks.
+comparison, and website export are not yet implemented. After the reviewed B/C
+cleanup in glossary revision `20260810`, the current snapshot produces 6 errors
+and 57 review warnings. The 3.3a handoff converts those items into 63 supervisor
+review rows and preserves the 15 completed cleanup changes as audit rows without
+changing the workbooks.
 
 ## Permanent identity and reviewed relationships
 
@@ -199,7 +200,7 @@ The remaining implementation proceeds in stages:
 | --- | --- | --- |
 | Bootstrap relationships | Permanent IDs, reviewed joins, Metadata, footnotes, and tracked assets | Complete |
 | Intake and snapshotting | Verify an incoming workbook pair, preserve immutable raw copies, and safely reconcile repeat attempts | Complete as package code; CLI remains later work |
-| Normalization and validation | Structural, identity/relationship, scientific-value, and supervisor-review components are implemented; current pre-cleanup data has 21 errors and 57 review warnings; Excel-derived checks, processing, and reports remain | In progress |
+| Normalization and validation | Structural, identity/relationship, scientific-value, and supervisor-review components are implemented; current post-cleanup data has 6 errors and 57 review warnings; Excel-derived checks, processing, and reports remain | In progress |
 | Comparison and release | Explain changes and orchestrate a complete release | Planned |
 | Website export | Produce deterministic public JSON from allowlisted fields | Planned |
 | Automation and handoff | CI, deployment, enrichment review, and maintainer procedures | Planned |

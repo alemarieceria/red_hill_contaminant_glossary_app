@@ -103,17 +103,19 @@ records; no partial successful result or production output is returned.
 ## Current authoritative status
 
 The current 152-contaminant and 406-reference snapshot reaches this gate but
-does not yet pass it. Before the separately preserved B/C cleanup is applied,
-the read-only integration test records 21 errors and 57 warnings:
+does not yet pass it. After the reviewed B/C cleanup in glossary revision
+`20260810`, the read-only integration test records 6 errors and 57 warnings:
 
-- one malformed alias delimiter;
 - one CASRN with an invalid check digit (`RHC-015`, source `207-916-6`);
 - five chemical-formula `NA` values on rows not classified as mixtures or
-  non-compound measurements; and
-- fourteen `Sources` values with trailing nonbreaking whitespace;
+  non-compound measurements;
 - six pending `Sources` descriptions (`RHC-132` through `RHC-137`);
 - 32 blank CASRN/InChIKey values; and
 - 19 permitted but scientifically unverified CASRN/InChIKey N/A values.
+
+The prior malformed alias delimiter and fourteen trailing-whitespace findings
+are resolved in revision `20260810`; they remain documented as 15 audit rows in
+that release's supervisor review workbook.
 
 The mixture/non-compound CASRN and InChIKey `NA` representations are permitted,
 but are not treated as scientifically verified. The pipeline reports defects

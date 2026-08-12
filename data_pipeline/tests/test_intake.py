@@ -411,13 +411,13 @@ class AuthoritativeIncomingPairTests(GeneratedArtifactGuard):
         )
         self.assertEqual(
             result.compatibility.glossary_metadata.workbook_revision,
-            "20260716",
+            "20260810",
         )
         self.assertEqual(
             result.compatibility.references_metadata.workbook_revision,
             "20260716",
         )
-        self.assertEqual(result.compatibility.data_release_id, "20260716")
+        self.assertEqual(result.compatibility.data_release_id, "20260810")
         self.assertEqual(
             {path: path.read_bytes() for path in original_workbooks},
             original_workbooks,

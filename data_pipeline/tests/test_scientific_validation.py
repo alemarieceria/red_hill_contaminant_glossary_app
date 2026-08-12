@@ -481,7 +481,7 @@ class AuthoritativeScientificFieldValidationTests(unittest.TestCase):
                 validate_scientific_fields(identities)
 
             findings = raised.exception.findings
-            self.assertEqual(len(findings), 78)
+            self.assertEqual(len(findings), 63)
             counts = {}
             for finding in findings:
                 key = (finding.severity.value, finding.code)
@@ -489,10 +489,8 @@ class AuthoritativeScientificFieldValidationTests(unittest.TestCase):
             self.assertEqual(
                 counts,
                 {
-                    ("error", "invalid_id_aka"): 1,
                     ("error", "invalid_id_casrn"): 1,
                     ("error", "invalid_id_chem_formula"): 5,
-                    ("error", "invalid_source_notes_sources"): 14,
                     ("warning", "pending_id_casrn"): 16,
                     ("warning", "pending_id_inchikey"): 16,
                     ("warning", "pending_source_notes_sources"): 6,

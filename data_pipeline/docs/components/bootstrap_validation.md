@@ -71,7 +71,7 @@ interpret special pesticide/footnote-D combinations during normalization.
 
 ## Current authoritative result
 
-The current pair passes with release ID `20260716`:
+The current pair passes with release ID `20260810`:
 
 | Report value | Count |
 | --- | ---: |

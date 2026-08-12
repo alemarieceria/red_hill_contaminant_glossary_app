@@ -339,13 +339,13 @@ class MetadataWorkbookIntegrationTests(unittest.TestCase):
 
         self.assertEqual(
             glossary,
-            WorkbookMetadata(GLOSSARY_WORKBOOK_TYPE, "1.0.0", "20260716"),
+            WorkbookMetadata(GLOSSARY_WORKBOOK_TYPE, "1.0.0", "20260810"),
         )
         self.assertEqual(
             references,
             WorkbookMetadata(REFERENCES_WORKBOOK_TYPE, "1.0.0", "20260716"),
         )
-        self.assertEqual(result.data_release_id, "20260716")
+        self.assertEqual(result.data_release_id, "20260810")
         self.assertEqual(
             INCOMING_GLOSSARY_WORKBOOK.read_bytes(), glossary_bytes
         )

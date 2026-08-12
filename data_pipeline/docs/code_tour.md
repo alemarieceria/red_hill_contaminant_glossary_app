@@ -183,8 +183,9 @@ scientific-value gates:
 
 Excel-derived, processing, report, broader determinism, and CLI validation
 remain unimplemented tasks 3.4 through 4.3. The current authoritative snapshot
-reports 21 errors and 57 review warnings before the separately preserved B/C
-cleanup is applied. The supervisor handoff contains 63 review rows.
+reports 6 errors and 57 review warnings after the reviewed B/C cleanup in
+glossary revision `20260810`. The supervisor handoff contains 63 review rows and
+15 resolved-cleanup audit rows.
 
 ## Python conventions used here
 

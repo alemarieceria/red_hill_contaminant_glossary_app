@@ -536,7 +536,7 @@ class AuthoritativeWorkbookContractValidationTests(unittest.TestCase):
 
             result = validate_workbook_contract(publication)
 
-            self.assertEqual(result.data_release_id, "20260716")
+            self.assertEqual(result.data_release_id, "20260810")
             self.assertEqual(result.schema_version, "1.0.0")
             self.assertEqual(
                 set(_headers(result, "glossary", GLOSSARY_SHEET_NAME)),
